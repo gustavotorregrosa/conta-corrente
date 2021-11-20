@@ -1,1 +1,1 @@
-<h5>Seu saldo é de <%= @conta.saldo.valor%></h5>
+<h5>Seu saldo é de <%= number_to_currency(@conta.saldo.valor, unit: "R$ ", separator: ",", delimiter: "") %></h5>

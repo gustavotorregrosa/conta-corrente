@@ -1,6 +1,7 @@
 class MovimentacoesController < ApplicationController
     before_action :authorize
     before_action :movimentacao_params, only: [ :fazer_deposito ]
+    before_action :transferencia_params, only: [ :tranferir ]
 
     def exibe_deposito
         render :deposito
@@ -10,7 +11,6 @@ class MovimentacoesController < ApplicationController
         render :retirada
     end
     
-
     def fazer_deposito
         MovimentacaoService.create_deposito(params, session)
         flash[:message] = "Depósito feito" 
@@ -18,8 +18,21 @@ class MovimentacoesController < ApplicationController
     end
 
     def fazer_retirada
-        MovimentacaoService.create_retirada(params, session)
-        flash[:message] = "Retirada feita" 
+        if MovimentacaoService.create_retirada(params, session)
+            flash[:message] = "Retirada feita" 
+        else
+            flash[:message] = "Saldo insuficiente"
+        end
+        redirect_to "/"
+    end
+
+    def tela_tranferencia
+        render :transferencia
+    end
+
+    def tranferir
+        message = MovimentacaoService.transferir(transferencia_params, session)
+        flash[:message] = message
         redirect_to "/"
     end
 
@@ -29,9 +42,13 @@ class MovimentacoesController < ApplicationController
     end
 
     private
-
+    
     def movimentacao_params
         params.permit(:valor)
+    end
+
+    def transferencia_params
+        params.permit(:agencia, :numeroconta, :emaildestino, :valor)
     end
 
 end

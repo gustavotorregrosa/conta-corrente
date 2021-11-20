@@ -3,11 +3,11 @@
   <form action="/movimentacoes/deposito" method="post" class="col-lg-6">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <div class="form-group">
-      <label for="exampleInputNome">Depósito</label>
+      <label for="exampleInputNome">Depósito (R$)</label>
       <input type="number" class="form-control" name="valor" id="exampleInputNome" aria-describedby="emailHelp" placeholder="Valor depositado">
     </div>
     <br>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Depositar</button>
   </form>
 </div>
 

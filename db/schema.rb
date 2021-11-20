@@ -15,6 +15,8 @@ ActiveRecord::Schema.define(version: 2021_11_14_174726) do
   create_table "contas", force: :cascade do |t|
     t.string "nome"
     t.string "email"
+    t.string "agencia"
+    t.string "numero_conta"
     t.string "password"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
